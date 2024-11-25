@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marzin">16dp</dimen>
+    <dimen name="row_gap">6dp</dimen>
+
+</resources>

@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">CBS</string>
+    <string-array name="nyu">
+        <item>পছন্দ করুন</item>
+        <item>না</item>
+        <item>হ্যাঁ</item>
+        <item>জানি-না/ মনে নাই</item>
+    </string-array>
+    <string-array name="cc_list">
+        <item>পছন্দ করুন</item>
+        <item>ঢাকা দক্ষিন সিটি কর্পোরেশন</item>
+        <item>রাজশাহী সিটি কর্পোরেশন</item>
+        <item>সিলেট সিটি কর্পোরেশন</item>
+    </string-array>
+    <string-array name="gen_list">
+        <item>পছন্দ করুন</item>
+        <item>পুরুষ</item>
+        <item>মহিলা</item>
+        <item>তৃতীয় লিঙ্গ</item>
+    </string-array>
+    <string-array name="relation_list">
+        <item>পছন্দ করুন</item>
+        <item>নিজে</item>
+        <item>সন্তান</item>
+        <item>জীবনসঙ্গিনী</item>
+        <item>মা-বাবা</item>
+        <item>নাতি/নাতনি</item>
+        <item>ভাই-বোন</item>
+        <item>ভাগিনা-ভাগিনী</item>
+        <item>ভাতিজা-ভাতিজী</item>
+        <item>গৃহপরিচারিকা</item>
+        <item>অন্যান্য</item>
+    </string-array>
+    <string-array name="result_list">
+        <item>পছন্দ করুন</item>
+        <item>নেগেটিভ</item>
+        <item>পজিটিভ</item>
+    </string-array>
+    <string-array name="result_show">
+        <item>পছন্দ করুন</item>
+        <item>দেখানো</item>
+        <item>মনে করে</item>
+    </string-array>
+    <string-array name="outcome_list">
+        <item>পছন্দ করুন</item>
+        <item>বাসায় ছিলেন</item>
+        <item>এখনো হাসপাতালে ভর্তি</item>
+        <item>হাসপাতালে ভর্তি হয়েছিলেন এবং ছুটি পেয়েছেন</item>
+        <item>মারা গিয়েছেন হাসপাতালে</item>
+        <item>মারা গিয়েছেন বাসায়</item>
+    </string-array>
+    <string-array name="docs_list">
+        <item>পছন্দ করুন</item>
+        <item>নিবন্ধনপ্রাপ্ত চিকিৎসক(সরকারি ব্যবস্থাপনায়)</item>
+        <item>নিবন্ধনপ্রাপ্ত চিকিৎসক(বেসরকারি ব্যবস্থাপনায়</item>
+        <item>হোমিও/ আয়ুর্বেদিক / অন্যান্য প্রচলিত</item>
+        <item>স্থানীয় ওষুধের দোকান</item>
+        <item>জানি না/উত্তর দিতে রাজি হয় নি</item>
+    </string-array>
+    <string-array name="comorbidity_list">
+        <item>পছন্দ করুন</item>
+        <item>না</item>
+        <item>উচ্চ রক্তচাপ</item>
+        <item>হৃদরোগ</item>
+        <item> স্ট্রোক বা মস্তিষ্কে রক্তক্ষরণজনিত অসুখ</item>
+        <item>লিভারের অসুখ</item>
+        <item>কিডনি অসুখ</item>
+        <item> দীর্ঘমেয়াদী শ্বাসতন্ত্রের রোগ</item>
+        <item>ক্যানসার</item>
+    </string-array>
+</resources>
