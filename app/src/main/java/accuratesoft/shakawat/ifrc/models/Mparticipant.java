@@ -8,7 +8,7 @@ public class Mparticipant {
     public int age=0;
     public int sex=0;
     public int relation=0;
-    public int comorbidity=0;
+    public String comorbidity="";
     public String rel_oth="";
     public int sick7=0;
     public int fever=0;
@@ -45,4 +45,10 @@ public class Mparticipant {
     public int prev_igg_vis=0;
     public int prev_igm_vis=0;
     public int outcome=0;
+
+    //todo list need to add in database
+    public String comorbidity_oth_txt="";
+    public int temp_measured=0;
+    public String fever_duration="";
+    public String awd_daygap="";
 }

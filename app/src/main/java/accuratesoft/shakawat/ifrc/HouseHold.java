@@ -16,26 +16,38 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import accuratesoft.shakawat.ifrc.fragments.MultiSelect;
+import accuratesoft.shakawat.ifrc.interfaces.MultiInterface;
 import accuratesoft.shakawat.ifrc.models.MhouseHold;
 import accuratesoft.shakawat.ifrc.models.Mparticipant;
 import accuratesoft.shakawat.ifrc.utils.GpsTracker;
 import accuratesoft.shakawat.ifrc.utils.Util;
 
-public class HouseHold extends AppCompatActivity {
+public class HouseHold extends AppCompatActivity implements MultiInterface {
     public static HouseHold houseHold;
     EditText ward,area,lat,lung,hh_num,house_address,info_name,info_age,mob,mem_qty,symptom_7_mem,
-            symptom_6m_mem,hh;
-    Spinner cc,info_gen,symptom_7,symptom_6m,word_num;
+            symptom_6m_mem,hh,unknown_disease_time,unknown_sick,unknown_dead,unknown_around_time,
+            death_animals_number,death_animals_time;
+    Spinner cc,info_gen,symptom_7,symptom_6m,word_num,unknown_disease,unkown_around,has_animals,
+            death_animals;
     Button gen_number,ref_gps,submit,unfinished;
-    TableRow symptom_7_mem_row,symptom_6m_mem_row;
+    TableRow symptom_7_mem_row,symptom_6m_mem_row,unknown_disease_time_row,unknown_sick_row,
+            unknown_dead_row,unkown_around_row,unknown_around_time_row,has_animals_row,
+            death_animals_row,death_animals_type_row,death_animals_number_row,death_animals_time_row;
+    CheckBox unknown_around_time_unk;
+    TextView death_animals_type;
     GpsTracker gpsTracker;
     SharedPreferences sharedPreferences;
     ArrayList<String> word_num_list;
@@ -80,12 +92,28 @@ public class HouseHold extends AppCompatActivity {
         symptom_7_mem = (EditText) findViewById(R.id.symptom_7_mem);
         symptom_6m_mem = (EditText) findViewById(R.id.symptom_6m_mem);
         hh = (EditText) findViewById(R.id.hh);
+        unknown_disease_time = (EditText) findViewById(R.id.unknown_disease_time);
+        unknown_sick = (EditText) findViewById(R.id.unknown_sick);
+        unknown_dead = (EditText) findViewById(R.id.unknown_dead);
+        unknown_around_time = (EditText) findViewById(R.id.unknown_around_time);
+        death_animals_number = (EditText) findViewById(R.id.death_animals_number);
+        death_animals_time = (EditText) findViewById(R.id.death_animals_time);
+        death_animals_type = (TextView) findViewById(R.id.death_animals_type);
 
         cc = (Spinner) findViewById(R.id.cc);
         info_gen = (Spinner) findViewById(R.id.info_gen);
         symptom_7 = (Spinner) findViewById(R.id.symptom_7);
         symptom_6m = (Spinner) findViewById(R.id.symptom_6m);
         word_num = (Spinner) findViewById(R.id.word_num);
+        unknown_disease = (Spinner) findViewById(R.id.unknown_disease);
+        unkown_around = (Spinner) findViewById(R.id.unkown_around);
+        has_animals = (Spinner) findViewById(R.id.has_animals);
+        death_animals = (Spinner) findViewById(R.id.death_animals);
+
+        unknown_disease.setOnItemSelectedListener(selectedListener);
+        unkown_around.setOnItemSelectedListener(selectedListener);
+        has_animals.setOnItemSelectedListener(selectedListener);
+        death_animals.setOnItemSelectedListener(selectedListener);
         symptom_7.setOnItemSelectedListener(selectedListener);
         symptom_6m.setOnItemSelectedListener(selectedListener);
         cc.setOnItemSelectedListener(selectedListener);
@@ -99,9 +127,21 @@ public class HouseHold extends AppCompatActivity {
         ref_gps.setOnClickListener(clickListener);
         submit.setOnClickListener(clickListener);
         unfinished.setOnClickListener(clickListener);
+        unknown_around_time_unk = (CheckBox) findViewById(R.id.unknown_around_time_unk);
+        unknown_around_time_unk.setOnCheckedChangeListener(checkedChangeListener);
 
         symptom_7_mem_row = (TableRow) findViewById(R.id.symptom_7_mem_row);
         symptom_6m_mem_row = (TableRow) findViewById(R.id.symptom_6m_mem_row);
+        unknown_disease_time_row = (TableRow) findViewById(R.id.unknown_disease_time_row);
+        unknown_sick_row = (TableRow) findViewById(R.id.unknown_sick_row);
+        unknown_dead_row = (TableRow) findViewById(R.id.unknown_dead_row);
+        unkown_around_row = (TableRow) findViewById(R.id.unkown_around_row);
+        unknown_around_time_row = (TableRow) findViewById(R.id.unknown_around_time_row);
+        has_animals_row = (TableRow) findViewById(R.id.has_animals_row);
+        death_animals_row = (TableRow) findViewById(R.id.death_animals_row);
+        death_animals_type_row = (TableRow) findViewById(R.id.death_animals_type_row);
+        death_animals_number_row = (TableRow) findViewById(R.id.death_animals_number_row);
+        death_animals_time_row = (TableRow) findViewById(R.id.death_animals_time_row);
         gpsTracker = new GpsTracker(HouseHold.this);
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
@@ -140,12 +180,33 @@ public class HouseHold extends AppCompatActivity {
         info_gen.setSelection(MhouseHold.info_sex);
         mob.setText(MhouseHold.mob);
         if(MhouseHold.mem>0) mem_qty.setText(String.valueOf(MhouseHold.mem));
+        unknown_disease_time.setText(MhouseHold.unknown_disease_time);
+        unknown_sick.setText(MhouseHold.unknown_sick);
+        unknown_dead.setText(MhouseHold.unknown_dead);
+        unknown_around_time.setText(MhouseHold.unknown_around_time);
+        death_animals_number.setText(MhouseHold.death_animals_number);
+        death_animals_time.setText(MhouseHold.death_animals_time);
+        death_animals_type.setText(MhouseHold.death_animals_type);
         symptom_7.setSelection(MhouseHold.symptom_7);
         symptom_6m.setSelection(MhouseHold.symptom_6m);
         if (MhouseHold.symptom_7==2) symptom_7_mem_row.setVisibility(View.VISIBLE);
         if (MhouseHold.symptom_6m==2) symptom_6m_mem_row.setVisibility(View.VISIBLE);
         symptom_7_mem.setText(String.valueOf(MhouseHold.symptom_7_mem));
         symptom_6m_mem.setText(String.valueOf(MhouseHold.symptom_6m_mem));
+
+        if(MhouseHold.unknown_around_time.compareTo("99")==0) unknown_around_time_unk.setChecked(true);
+        unknown_disease_time.setText(MhouseHold.unknown_disease_time);
+        unknown_sick.setText(MhouseHold.unknown_sick);
+        unknown_dead.setText(MhouseHold.unknown_dead);
+        unknown_around_time.setText(MhouseHold.unknown_around_time);
+        death_animals_number.setText(MhouseHold.death_animals_number);
+        death_animals_time.setText(MhouseHold.death_animals_time);
+        death_animals_type.setText(MhouseHold.death_animals_type);
+        unknown_disease.setSelection(MhouseHold.unknown_disease);
+        unkown_around.setSelection(MhouseHold.unkown_around);
+        has_animals.setSelection(MhouseHold.has_animals);
+        death_animals.setSelection(MhouseHold.death_animals);
+        death_animals_type.setOnClickListener(clickListener);
     }
     private void setData(){
         MhouseHold.cc = cc.getSelectedItemPosition();
@@ -172,6 +233,17 @@ public class HouseHold extends AppCompatActivity {
             MhouseHold.symptom_7_mem = Integer.parseInt(symptom_7_mem.getText().toString());
         if(symptom_6m_mem.getText().toString()!=null && !symptom_6m_mem.getText().toString().isEmpty())
             MhouseHold.symptom_6m_mem = Integer.parseInt(symptom_6m_mem.getText().toString());
+        MhouseHold.unknown_disease_time = unknown_disease_time.getText().toString();
+        MhouseHold.unknown_sick = unknown_sick.getText().toString();
+        MhouseHold.unknown_dead = unknown_dead.getText().toString();
+        MhouseHold.unknown_around_time = unknown_around_time.getText().toString();
+        MhouseHold.death_animals_number = death_animals_number.getText().toString();
+        MhouseHold.death_animals_time = death_animals_time.getText().toString();
+        MhouseHold.death_animals_type = death_animals_type.getText().toString();
+        MhouseHold.unknown_disease = unknown_disease.getSelectedItemPosition();
+        MhouseHold.unkown_around = unkown_around.getSelectedItemPosition();
+        MhouseHold.has_animals = has_animals.getSelectedItemPosition();
+        MhouseHold.death_animals = death_animals.getSelectedItemPosition();
     }
     private boolean check(){
         boolean is_ok = true;
@@ -194,6 +266,11 @@ public class HouseHold extends AppCompatActivity {
         if (word_num.getSelectedItemPosition()==0){
             is_ok=false;
             Toast.makeText(HouseHold.this,"Select ward number",Toast.LENGTH_SHORT).show();
+        }
+//        house_address
+        if(house_address.getText().toString()==null || house_address.getText().toString().isEmpty()){
+            is_ok=false;
+            Toast.makeText(HouseHold.this,"Write house_address",Toast.LENGTH_SHORT).show();
         }
         if(area.getText().toString()==null || area.getText().toString().isEmpty()){
             is_ok=false;
@@ -240,6 +317,14 @@ public class HouseHold extends AppCompatActivity {
 
         return is_ok;
     }
+    private CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            if (compoundButton.getId()==unknown_around_time_unk.getId()){
+                if (b) unknown_around_time.setText("99");
+            }
+        }
+    };
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -250,9 +335,19 @@ public class HouseHold extends AppCompatActivity {
                 }else{
                     gpsTracker.showSettingsAlert();
                 }
+            } else if (view.getId()==death_animals_type.getId()) {
+                HashMap<String,String> params = new HashMap<>();
+                params.put("1","মাছ");
+                params.put("2","গরু/ ছাগল/ মহিষ/ ভেরা");
+                params.put("3","কুকুর");
+                params.put("4","বিরাল");
+                params.put("5","মুরগি/ হাঁস/ কবুতর");
+                params.put("6","অন্য কোন ধরনের পাখি");
+                new MultiSelect(HouseHold.this,HouseHold.this,death_animals_type.getText().toString(),params,death_animals_type,"প্রাণী").show();
             } else if (view.getId()==submit.getId()) {
                 if (check()){
                     setData();
+                    Util.makeToast(HouseHold.this,"Please wait Loading UI...");
                     if (MhouseHold.participants.size()==0){
                         int i = Integer.parseInt(mem_qty.getText().toString());
                         for (int j=1;j<=i;j++){
@@ -329,22 +424,59 @@ public class HouseHold extends AppCompatActivity {
     private AdapterView.OnItemSelectedListener selectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            if (view.getParent()==symptom_7){
-                if (i==2)
-                    symptom_7_mem_row.setVisibility(View.VISIBLE);
-                else {
-                    symptom_7_mem_row.setVisibility(View.GONE);
-                    symptom_7_mem.setText("");
+            if(view!=null){
+                if (view.getParent() == symptom_7) {
+                    if (i == 2)
+                        symptom_7_mem_row.setVisibility(View.VISIBLE);
+                    else {
+                        symptom_7_mem_row.setVisibility(View.GONE);
+                        symptom_7_mem.setText("");
+                    }
+                } else if (view.getParent() == symptom_6m) {
+                    if (i == 2)
+                        symptom_6m_mem_row.setVisibility(View.VISIBLE);
+                    else {
+                        symptom_6m_mem_row.setVisibility(View.GONE);
+                        symptom_6m_mem.setText("");
+                    }
+                } else if (view.getParent() == cc) {
+                    set_word(i);
+                } else if (view.getParent() == unknown_disease) {
+                    if (i == 2) {
+                        unknown_disease_time_row.setVisibility(View.VISIBLE);
+                        unknown_sick_row.setVisibility(View.VISIBLE);
+                        unknown_dead_row.setVisibility(View.VISIBLE);
+                    } else {
+                        unknown_disease_time_row.setVisibility(View.GONE);
+                        unknown_sick_row.setVisibility(View.GONE);
+                        unknown_dead_row.setVisibility(View.GONE);
+                    }
+                } else if (view.getParent() == unkown_around) {
+                    if (i == 2) {
+                        unknown_around_time_row.setVisibility(View.VISIBLE);
+                    } else {
+                        unknown_around_time_row.setVisibility(View.GONE);
+                    }
+                } else if (view.getParent() == has_animals) {
+                    if (i == 2) {
+                        death_animals_row.setVisibility(View.VISIBLE);
+                    } else {
+                        death_animals_row.setVisibility(View.GONE);
+                        death_animals_type_row.setVisibility(View.GONE);
+                        death_animals_number_row.setVisibility(View.GONE);
+                        death_animals_time_row.setVisibility(View.GONE);
+                    }
+                } else if (view.getParent() == death_animals) {
+                    if (i == 2) {
+                        death_animals_type_row.setVisibility(View.VISIBLE);
+                        death_animals_number_row.setVisibility(View.VISIBLE);
+                        death_animals_time_row.setVisibility(View.VISIBLE);
+                    } else {
+                        death_animals_type_row.setVisibility(View.GONE);
+                        death_animals_number_row.setVisibility(View.GONE);
+                        death_animals_time_row.setVisibility(View.GONE);
+                    }
                 }
-            } else if (view.getParent()==symptom_6m) {
-                if (i==2)
-                    symptom_6m_mem_row.setVisibility(View.VISIBLE);
-                else {
-                    symptom_6m_mem_row.setVisibility(View.GONE);
-                    symptom_6m_mem.setText("");
-                }
-            } else if (view.getParent()== cc) {
-                set_word(i);
             }
         }
 
@@ -375,4 +507,8 @@ public class HouseHold extends AppCompatActivity {
         word_num_adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void setText(String selected, TextView tv) {
+        tv.setText(selected);
+    }
 }

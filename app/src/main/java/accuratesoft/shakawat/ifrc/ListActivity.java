@@ -100,6 +100,7 @@ public class ListActivity extends AppCompatActivity {
             } else if (view.getId() == sync.getId()) {
                 saveData();
             }else if(view.getId()==fab.getId()){
+                Util.makeToast(ListActivity.this,"Please wait Loading UI...");
                 MhouseHold.clear();
                 startActivity(new Intent(ListActivity.this,HouseHold.class));
             } else if (view.getId()==followup.getId()) {

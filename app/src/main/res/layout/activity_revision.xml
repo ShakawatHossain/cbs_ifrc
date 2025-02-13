@@ -17,7 +17,8 @@
                 android:id="@+id/tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:visibility="gone"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="@dimen/row_gap"
-                android:padding="@dimen/row_gap">
+                android:padding="@dimen/row_gap"
+                android:visibility="gone">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -107,6 +109,291 @@
                     android:maxLength="2"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:background="#e6e6e6">
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="গত ১ মাসে আপনার বাড়ির কেউ কি সংক্রামক কোন রোগে অসুস্থ হয়েছেন বা মারা গিয়েছেন?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <Spinner
+                        android:id="@+id/unknown_disease"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/ny"
+                        android:layout_gravity="center_vertical"
+                        />
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/unknown_disease_time_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="যদি হ্যাঁ হয়, তবে কত দিন আগে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <EditText
+                        android:id="@+id/unknown_disease_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="number"/>
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/unknown_disease_type_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="কী ধরনের রোগ হয়েছে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <TextView
+                        android:id="@+id/unknown_disease_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Tap to select"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/black"
+                        />
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/unknown_disease_type_oth_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="অন্যান্য উল্লেখ করুন?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <EditText
+                        android:id="@+id/unknown_disease_type_oth"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical" />
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/unknown_sick_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="কত জনের হঠাৎ অসুস্থতা হয়েছে তা উল্লেখ করুন"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <EditText
+                        android:id="@+id/unknown_sick"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="number"/>
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/unknown_dead_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="এবং কত জনের মৃত্যু হয়েছে তা উল্লেখ করুন"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <EditText
+                        android:id="@+id/unknown_dead"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="number"/>
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/unkown_around_row">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="আপনার জানা মতে, আশেপাশের কোন বাড়িতে অনুরুপ কোন ঘটনা ঘটেছে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <Spinner
+                        android:id="@+id/unkown_around"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/ny"
+                        android:layout_gravity="center_vertical"
+                        />
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/unknown_around_time_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="যদি হ্যাঁ হয়, তবে আপনার কি মনে আছে তা কতদিন আগে ঘটেছে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="কয়দিন আগে হয়েছে?" />
+                        <EditText
+                            android:id="@+id/unknown_around_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="দিন"
+                            android:inputType="number"
+                            android:maxLength="3"/>
+                        <CheckBox
+                            android:id="@+id/unknown_around_time_unk"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="জানি না/ মনে নেই"/>
+                    </LinearLayout>
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/has_animals_row">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="আপনার আবাসস্থলে কি কোন গবাদিপশু বা মাছের পুকুর আছে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <Spinner
+                        android:id="@+id/has_animals"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/ny"
+                        android:layout_gravity="center_vertical"
+                        />
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/death_animals_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="যদি হ্যাঁ হয়, আপনি এসব প্রাণীদের মধ্যে অস্বাভাবিক মৃত্যু লক্ষ্য করেছেন?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <Spinner
+                        android:id="@+id/death_animals"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:entries="@array/ny"
+                        android:layout_gravity="center_vertical"
+                        />
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/death_animals_type_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="যদি হ্যাঁ হয়, কোন ধরনের প্রাণী মারা গিয়েছে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <TextView
+                        android:id="@+id/death_animals_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Tap to select"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/black"
+                        />
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/death_animals_number_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="আনুমানিক কতগুলো প্রাণীর মৃত্যু হয়েছে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <EditText
+                        android:id="@+id/death_animals_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="number"/>
+                </TableRow>
+                <TableRow
+                    android:background="#ffffff"
+                    android:layout_marginBottom="@dimen/row_gap"
+                    android:id="@+id/death_animals_time_row"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="কতদিন আগে প্রাণীগুলো মারা গিয়েছে?"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/black"/>
+                    <EditText
+                        android:id="@+id/death_animals_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:inputType="number"/>
+                </TableRow>
+            </TableLayout>
             <Button
                 android:id="@+id/submit"
                 android:layout_width="match_parent"

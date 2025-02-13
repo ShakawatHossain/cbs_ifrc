@@ -111,6 +111,7 @@
                         android:background="#ffffff"
                         android:layout_marginBottom="@dimen/row_gap">
                         <TextView
+                            android:id="@+id/relation_title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -123,25 +124,6 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:entries="@array/relation_list"
-                            android:layout_gravity="center_vertical"
-                            />
-                    </TableRow>
-                    <TableRow
-                        android:background="#ffffff"
-                        android:layout_marginBottom="@dimen/row_gap">
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="আপনার কি কোনো কোমরবিডিটি (দীর্ঘমেয়াদী কোনো শারীরিক অসুবিধা) রয়েছে"
-                            android:layout_gravity="center_vertical"
-                            android:textColor="@android:color/black"/>
-                        <Spinner
-                            android:id="@+id/comorbidity"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:entries="@array/comorbidity_list"
                             android:layout_gravity="center_vertical"
                             />
                     </TableRow>
@@ -167,14 +149,56 @@
                     </TableRow>
                     <TableRow
                         android:background="#ffffff"
+                        android:layout_marginBottom="@dimen/row_gap">
+                        <TextView
+                            android:id="@+id/comorbidity_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="আপনার কি কোনো কোমরবিডিটি (দীর্ঘমেয়াদী কোনো শারীরিক অসুবিধা) রয়েছে"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:id="@+id/comorbidity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Tap to select"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@android:color/black"
+                            />
+                    </TableRow>
+                    <TableRow
+                        android:background="#ffffff"
                         android:layout_marginBottom="@dimen/row_gap"
-                        android:id="@+id/sick7_row"
+                        android:id="@+id/comorbidity_oth_row"
                         android:visibility="gone">
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="আপনার কি গত ৭দিনে জ্বর, মাথাব্যাথা, গায়েব্যাথা, মাংশপেশী/গিরায় ব্যাথা, ডায়রিয়া বা বমির মত কোন লক্ষণ দেখা গিয়েছে?"
+                            android:text="অন্যান্য লিখুন"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@android:color/black"/>
+                        <EditText
+                            android:id="@+id/comorbidity_oth_txt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            />
+                    </TableRow>
+                    <TableRow
+                        android:background="#ffffff"
+                        android:layout_marginBottom="@dimen/row_gap"
+                        android:id="@+id/sick7_row"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/sick7_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="কি গত ১০ দিনের মধ্যে (আজকে সহ) জ্বর ছিল?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <Spinner
@@ -182,7 +206,49 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:entries="@array/nyu"
+                            android:entries="@array/ny"
+                            android:layout_gravity="center_vertical"
+                            />
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/fever_duration_row"
+                        android:visibility="gone"
+                        android:background="#ffffff"
+                        android:layout_marginBottom="@dimen/row_gap">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="যদি হ্যাঁ হয়, তবে কতদিন ধরে ছিল?"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@android:color/black"/>
+                        <EditText
+                            android:id="@+id/fever_duration"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            android:inputType="number"
+                            android:maxLength="2"/>
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/temp_measured_row"
+                        android:visibility="gone"
+                        android:background="#ffffff"
+                        android:layout_marginBottom="@dimen/row_gap">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="জ্বর কি মাপা হয়েছে?"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@android:color/black"/>
+                        <Spinner
+                            android:id="@+id/temp_measured"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:entries="@array/temp_measured_list"
                             android:layout_gravity="center_vertical"
                             />
                     </TableRow>
@@ -195,7 +261,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="দয়া করে লক্ষণ গুলো তে টিক দিন"
+                            android:text="এই জ্বরের সাথে অন্য উপসর্গগুলো তে টিক দিন"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <LinearLayout
@@ -208,12 +274,17 @@
                                 android:id="@+id/fever"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="জ্বর"/>
+                                android:text="কাশি"/>
                             <CheckBox
-                                android:id="@+id/headache"
+                                android:id="@+id/rash"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="মাথাব্যাথা"/>
+                                android:text="র‍্যাশ/ফুস্কুড়ি"/>
+                            <CheckBox
+                                android:id="@+id/vomit_tendency"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="বমি-বমি ভাব/বমি"/>
                             <CheckBox
                                 android:id="@+id/aches"
                                 android:layout_width="match_parent"
@@ -223,44 +294,39 @@
                                 android:id="@+id/mus_pain"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="মাংসপেশি"/>
+                                android:text="মাংসপেশি ব্যাথা"/>
                             <CheckBox
                                 android:id="@+id/arth_pain"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="গিরায় ব্যাথা"/>
-                            <CheckBox
-                                android:id="@+id/rash"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="র‍্যাশ/ফুস্কুড়ি"/>
-                            <CheckBox
-                                android:id="@+id/vomit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="বমি"/>
-                            <CheckBox
-                                android:id="@+id/vomit_tendency"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="বমি-বমি ভাব"/>
+                                android:text="জয়েন্টে ব্যাথা/গিরায় ব্যাথা"/>
                             <CheckBox
                                 android:id="@+id/dia"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="ডায়রিয়া"/>
+                                android:text="পেটে ব্যাথা "/>
+                            <CheckBox
+                                android:id="@+id/vomit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="মাড়ি থেকে রক্তপাত / শরীরের অন্য কোনো অংশে রক্তপাত"/>
+                            <CheckBox
+                                android:id="@+id/headache"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="মাথা ব্যাথ/ চোখ ব্যাথা"/>
                         </LinearLayout>
                     </TableRow>
                     <TableRow
                         android:background="#ffffff"
                         android:layout_marginBottom="@dimen/row_gap"
-                        android:id="@+id/is_test_row"
-                        android:visibility="gone">
+                        android:id="@+id/is_test_row">
                         <TextView
+                            android:id="@+id/is_test_title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="রোগ নির্ণয়ের জন্য কোন পরীক্ষা করেছেন?"
+                            android:text="গত ১ মাসের মধ্যে কি পাতলা পায়খানা হয়েছে?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <Spinner
@@ -281,7 +347,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="কি কি পরীক্ষা করেছিলেন"
+                            android:text="২৪ ঘণ্টায় কতবার হয়/ হয়েছে?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <LinearLayout
@@ -294,22 +360,36 @@
                                 android:id="@+id/ns1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="এনএস ১"/>
+                                android:text="এনএস ১"
+                                android:visibility="gone"/>
                             <CheckBox
                                 android:id="@+id/igg"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="আইজি জি"/>
+                                android:text="আইজি জি"
+                                android:visibility="gone"/>
                             <CheckBox
                                 android:id="@+id/igm"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="আইজি এম"/>
+                                android:text="৩ বারের কম"/>
                             <CheckBox
                                 android:id="@+id/unk_test"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="জানি না/ মনে নেই"/>
+                                android:text="৩ বারের সমান বা বেশি"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="কয়দিন আগে হয়েছে?"
+                                android:layout_marginTop="@dimen/row_gap"/>
+                            <EditText
+                                android:id="@+id/awd_daygap"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="দিন"
+                                android:inputType="number"
+                                android:maxLength="2"/>
                         </LinearLayout>
                     </TableRow>
                     <TableRow
@@ -358,12 +438,13 @@
                         android:background="#ffffff"
                         android:layout_marginBottom="@dimen/row_gap"
                         android:id="@+id/igm_p_row"
-                        android:visibility="gone">
+                        >
                         <TextView
+                            android:id="@+id/igm_p_title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="আইজি এম রিপোর্ট"
+                            android:text="গত ১৪ দিনে মি. এক্স এর কি ত্বক বা চোখের সাদা অংশ হলুদ বর্ণ বা প্রস্রাব এর রং গাঢ় বর্ণ ধারন করেছে?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <Spinner
@@ -371,7 +452,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:entries="@array/result_list"
+                            android:entries="@array/ny"
                             android:layout_gravity="center_vertical"
                             />
                     </TableRow>
@@ -426,7 +507,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="আইজি এম রিপোর্ট দেখানো"
+                            android:text="কতদিন ধরে এই উপসর্গ দেখা যাচ্ছে?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <Spinner
@@ -434,7 +515,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:entries="@array/result_show"
+                            android:entries="@array/jaundice_dur_list"
                             android:layout_gravity="center_vertical"
                             />
                     </TableRow>
@@ -649,13 +730,13 @@
                     <TableRow
                         android:background="#ffffff"
                         android:layout_marginBottom="@dimen/row_gap"
-                        android:id="@+id/outcome_row"
-                        android:visibility="gone">
+                        android:id="@+id/outcome_row">
                         <TextView
+                            android:id="@+id/outcome_title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="শেষ পর্যন্ত রোগের পরিণতি কি হয়েছিল"
+                            android:text="শেষের ১০ দিন বাদ দিয়ে গত ১ মাসের মধ্যে মি. এক্স এর উপরের এমন কোনো লক্ষণ দেখা গিয়েছে?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <Spinner
@@ -663,7 +744,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:entries="@array/outcome_list"
+                            android:entries="@array/ny"
                             android:layout_gravity="center_vertical"
                             />
                     </TableRow>

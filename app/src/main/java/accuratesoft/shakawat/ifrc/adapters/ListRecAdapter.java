@@ -17,6 +17,7 @@ import accuratesoft.shakawat.ifrc.R;
 import accuratesoft.shakawat.ifrc.models.MhouseHold;
 import accuratesoft.shakawat.ifrc.models.Mparticipant;
 import accuratesoft.shakawat.ifrc.utils.MyDB;
+import accuratesoft.shakawat.ifrc.utils.Util;
 
 public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.MyViewHolder>{
     Context ctx;
@@ -72,6 +73,7 @@ public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.MyViewHo
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Util.makeToast(ctx,"Please wait Loading UI...");
             MyDB myDB = new MyDB(ctx);
             MhouseHold.clear();
             int pos = recyclerView.getChildAdapterPosition(view);
@@ -81,6 +83,7 @@ public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.MyViewHo
                 MhouseHold.ward= modelLists.getInt(modelLists.getColumnIndex("ward"));
                 MhouseHold.hh= modelLists.getInt(modelLists.getColumnIndex("hh")); //Interview number
                 MhouseHold.hh_num= modelLists.getString(modelLists.getColumnIndex("hh_num"));
+                MhouseHold.house_address= modelLists.getString(modelLists.getColumnIndex("house_address"));
                 MhouseHold.area= modelLists.getString(modelLists.getColumnIndex("area"));
                 MhouseHold.lat= modelLists.getString(modelLists.getColumnIndex("lat"));
                 MhouseHold.lung= modelLists.getString(modelLists.getColumnIndex("lung"));
@@ -97,6 +100,17 @@ public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.MyViewHo
                 MhouseHold.is_death = modelLists.getInt(modelLists.getColumnIndex("is_death"));
                 MhouseHold.dname = modelLists.getString(modelLists.getColumnIndex("dname"));
                 MhouseHold.dage = modelLists.getInt(modelLists.getColumnIndex("dage"));
+                MhouseHold.unknown_disease_time = modelLists.getString(modelLists.getColumnIndex("unknown_disease_time"));
+                MhouseHold.unknown_sick = modelLists.getString(modelLists.getColumnIndex("unknown_sick"));
+                MhouseHold.unknown_dead = modelLists.getString(modelLists.getColumnIndex("unknown_dead"));
+                MhouseHold.unknown_around_time = modelLists.getString(modelLists.getColumnIndex("unknown_around_time"));
+                MhouseHold.death_animals_number = modelLists.getString(modelLists.getColumnIndex("death_animals_number"));
+                MhouseHold.death_animals_time = modelLists.getString(modelLists.getColumnIndex("death_animals_time"));
+                MhouseHold.death_animals_type = modelLists.getString(modelLists.getColumnIndex("death_animals_type"));
+                MhouseHold.unknown_disease = modelLists.getInt(modelLists.getColumnIndex("unknown_disease"));
+                MhouseHold.unkown_around = modelLists.getInt(modelLists.getColumnIndex("unkown_around"));
+                MhouseHold.has_animals = modelLists.getInt(modelLists.getColumnIndex("has_animals"));
+                MhouseHold.death_animals = modelLists.getInt(modelLists.getColumnIndex("death_animals"));
                 Cursor cp = myDB.get_participant(MhouseHold.hh_num);
                 if (cp.moveToFirst()){
                     do {
@@ -108,7 +122,7 @@ public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.MyViewHo
                         mparticipant.age=cp.getInt(cp.getColumnIndex("age"));
                         mparticipant.sex=cp.getInt(cp.getColumnIndex("sex"));
                         mparticipant.relation=cp.getInt(cp.getColumnIndex("relation"));
-                        mparticipant.comorbidity=cp.getInt(cp.getColumnIndex("comorbidity"));
+                        mparticipant.comorbidity=cp.getString(cp.getColumnIndex("comorbidity"));
                         mparticipant.rel_oth = cp.getString(cp.getColumnIndex("rel_oth"));
                         mparticipant.sick7=cp.getInt(cp.getColumnIndex("sick7"));
                         mparticipant.fever=cp.getInt(cp.getColumnIndex("fever"));
@@ -145,6 +159,10 @@ public class ListRecAdapter extends RecyclerView.Adapter<ListRecAdapter.MyViewHo
                         mparticipant.prev_igg_vis=cp.getInt(cp.getColumnIndex("prev_igg_vis"));
                         mparticipant.prev_igm_vis=cp.getInt(cp.getColumnIndex("prev_igm_vis"));
                         mparticipant.outcome=cp.getInt(cp.getColumnIndex("outcome"));
+                        mparticipant.comorbidity_oth_txt=cp.getString(cp.getColumnIndex("comorbidity_oth_txt"));
+                        mparticipant.temp_measured=cp.getInt(cp.getColumnIndex("temp_measured"));
+                        mparticipant.fever_duration=cp.getString(cp.getColumnIndex("fever_duration"));
+                        mparticipant.awd_daygap=cp.getString(cp.getColumnIndex("awd_daygap"));
                         MhouseHold.participants.add(mparticipant);
                     }while (cp.moveToNext());
                 }

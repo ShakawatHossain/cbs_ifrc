@@ -26,8 +26,21 @@ public class MhouseHold {
     public static int is_death=0;
     public static String dname="";
     public static int dage=0;
-
+//    new fields
+    public static String unknown_disease_time = "";
+    public static String unknown_sick = "";
+    public static String unknown_dead = "";
+    public static String unknown_around_time = "";
+    public static String death_animals_number = "";
+    public static String death_animals_time = "";
+    public static String death_animals_type = "";
+    public static int unknown_disease = 0;
+    public static int unkown_around = 0;
+    public static int has_animals = 0;
+    public static int death_animals = 0;
     public static ArrayList<Mparticipant> participants = new ArrayList<>();
+    public static String unknown_disease_type="";
+    public static String unknown_disease_type_oth="";
 
     public static void clear(){
         id=0;
@@ -52,6 +65,19 @@ public class MhouseHold {
         dname="";
         dage=0;
         reffer=0;
+        unknown_disease_time = "";
+        unknown_sick = "";
+        unknown_dead = "";
+        unknown_around_time = "";
+        death_animals_number = "";
+        death_animals_time = "";
+        death_animals_type = "";
+        unknown_disease = 0;
+        unkown_around = 0;
+        has_animals = 0;
+        death_animals = 0;
+        unknown_disease_type="";
+        unknown_disease_type_oth="";
         participants.clear();
     }
 }

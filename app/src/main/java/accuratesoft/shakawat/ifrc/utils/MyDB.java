@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class MyDB extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "ifrc";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 12;
 
     private static String household = "household";
     private static String participant = "participant";
@@ -26,6 +26,7 @@ public class MyDB extends SQLiteOpenHelper {
             +" ward INTEGER NOT NULL DEFAULT 0,"
             +" hh INTEGER NOT NULL DEFAULT 0,"
             +" hh_num TEXT NOT NULL DEFAULT '',"
+            +" house_address TEXT NOT NULL DEFAULT '',"
             +" area TEXT NOT NULL DEFAULT '',"
             +" lat TEXT NOT NULL DEFAULT '',"
             +" lung TEXT NOT NULL DEFAULT '',"
@@ -42,6 +43,19 @@ public class MyDB extends SQLiteOpenHelper {
             +" is_death INTEGER NOT NULL DEFAULT 0,"
             +" dname TEXT NOT NULL DEFAULT '',"
             +" dage INTEGER NOT NULL DEFAULT 0,"
+            +" unknown_disease_time TEXT NOT NULL DEFAULT '',"
+            +" unknown_sick TEXT NOT NULL DEFAULT '',"
+            +" unknown_dead TEXT NOT NULL DEFAULT '',"
+            +" unknown_around_time TEXT NOT NULL DEFAULT '',"
+            +" death_animals_number TEXT NOT NULL DEFAULT '',"
+            +" death_animals_time TEXT NOT NULL DEFAULT '',"
+            +" death_animals_type TEXT NOT NULL DEFAULT '',"
+            +" unknown_disease INTEGER NOT NULL DEFAULT 0,"
+            +" unkown_around INTEGER NOT NULL DEFAULT 0,"
+            +" has_animals INTEGER NOT NULL DEFAULT 0,"
+            +" death_animals INTEGER NOT NULL DEFAULT 0,"
+            +" unknown_disease_type TEXT NOT NULL DEFAULT '',"
+            +" unknown_disease_type_oth TEXT NOT NULL DEFAULT '',"
             +" user INTEGER NOT NULL DEFAULT 0,"
             +" created_at DATETIME DEFAULT CURRENT_TIMESTAMP )";
     public static final String create_participant ="CREATE TABLE " + participant
@@ -53,7 +67,7 @@ public class MyDB extends SQLiteOpenHelper {
             +" age INTEGER NOT NULL DEFAULT 0,"
             +" sex INTEGER NOT NULL DEFAULT 0,"
             +" relation INTEGER NOT NULL DEFAULT 0,"
-            +" comorbidity INTEGER NOT NULL DEFAULT 0,"
+            +" comorbidity TEXT NOT NULL DEFAULT '',"
             +" rel_oth TEXT NOT NULL DEFAULT '',"
             +" sick7 INTEGER NOT NULL DEFAULT 0,"
             +" fever INTEGER NOT NULL DEFAULT 0,"
@@ -90,6 +104,10 @@ public class MyDB extends SQLiteOpenHelper {
             +" prev_igg_vis INTEGER NOT NULL DEFAULT 0,"
             +" prev_igm_vis INTEGER NOT NULL DEFAULT 0,"
             +" outcome INTEGER NOT NULL DEFAULT 0,"
+            +" comorbidity_oth_txt TEXT NOT NULL DEFAULT '',"
+            +" temp_measured INTEGER NOT NULL DEFAULT 0,"
+            +" fever_duration TEXT NOT NULL DEFAULT '',"
+            +" awd_daygap TEXT NOT NULL DEFAULT '',"
             +" user INTEGER NOT NULL DEFAULT 0,"
             +" created_at DATETIME DEFAULT CURRENT_TIMESTAMP )";
 

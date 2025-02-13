@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">CBS</string>
+    <string-array name="ny">
+        <item>পছন্দ করুন</item>
+        <item>না</item>
+        <item>হ্যাঁ</item>
+    </string-array>
     <string-array name="nyu">
         <item>পছন্দ করুন</item>
         <item>না</item>
@@ -29,6 +34,7 @@
         <item>ভাগিনা-ভাগিনী</item>
         <item>ভাতিজা-ভাতিজী</item>
         <item>গৃহপরিচারিকা</item>
+        <item>পুত্রবধু</item>
         <item>অন্যান্য</item>
     </string-array>
     <string-array name="result_list">
@@ -67,5 +73,16 @@
         <item>কিডনি অসুখ</item>
         <item> দীর্ঘমেয়াদী শ্বাসতন্ত্রের রোগ</item>
         <item>ক্যানসার</item>
+    </string-array>
+    <string-array name="temp_measured_list">
+        <item>পছন্দ করুন</item>
+        <item>সর্বোচ্চ তাপমাত্রার পরিমাপ ১০০ ফারেনহাইটের কম</item>
+        <item>সর্বোচ্চ তাপমাত্রার পরিমাপ ১০০ ফারেনহাইট বা তার বেশি</item>
+        <item>পরিমাপ হয় নাই</item>
+    </string-array>
+    <string-array name="jaundice_dur_list">
+        <item>পছন্দ করুন</item>
+        <item>১৪ দিনের কম</item>
+        <item>১৪ দিনের বেশি</item>
     </string-array>
 </resources>

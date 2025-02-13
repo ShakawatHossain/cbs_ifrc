@@ -39,13 +39,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dengue Community Based Surveillance"
+                    android:text="Community Based Surveillance"
                     android:textAppearance="@android:style/TextAppearance.Large"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Version: 6.01"/>
+                    android:text="Version: 2.7"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
