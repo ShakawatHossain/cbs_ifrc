@@ -212,8 +212,13 @@ public class HouseHold extends AppCompatActivity implements MultiInterface {
         MhouseHold.cc = cc.getSelectedItemPosition();
 //        if (ward.getText().toString()!=null && !ward.getText().toString().isEmpty())
 //            MhouseHold.ward = Integer.parseInt(ward.getText().toString());
-        if (word_num.getSelectedItemPosition()>0)
-            MhouseHold.ward = Integer.parseInt(word_num.getSelectedItem().toString());
+        if (word_num.getSelectedItemPosition()>0) {
+            if(word_num.getSelectedItem().toString().length()>2){
+                MhouseHold.ward = Integer.parseInt(word_num.getSelectedItem().toString().substring(0,2));
+            }else{
+                MhouseHold.ward = Integer.parseInt(word_num.getSelectedItem().toString());
+            }
+        }
         MhouseHold.area = area.getText().toString();
         MhouseHold.lat = lat.getText().toString();
         MhouseHold.lung = lung.getText().toString();
@@ -394,8 +399,14 @@ public class HouseHold extends AppCompatActivity implements MultiInterface {
                 if (cc.getSelectedItemPosition()==1)    s="D";
                 else if (cc.getSelectedItemPosition()==2)    s="R";
                 else if (cc.getSelectedItemPosition()==3)    s="S";
+                else if (cc.getSelectedItemPosition()==4)    s="RU";
                 s+= ward.getText().toString();
-                s+=word_num.getSelectedItem().toString();
+                if(word_num.getSelectedItem().toString().length()>2){
+                    s+=word_num.getSelectedItem().toString().substring(0,2);
+                }else{
+                    s+=word_num.getSelectedItem().toString();
+                }
+
                 int id = sharedPreferences.getInt("id",0);
                 if (id<10){
                     s+="00"+id;
@@ -503,6 +514,9 @@ public class HouseHold extends AppCompatActivity implements MultiInterface {
             word_num_list.add("26");
             word_num_list.add("37");
             word_num_list.add("39");
+        }else if (val==4){
+            word_num_list.add("01-Valukgaci");
+            word_num_list.add("02-Baneshwar");
         }
         word_num_adapter.notifyDataSetChanged();
     }

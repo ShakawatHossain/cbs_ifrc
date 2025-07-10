@@ -43,7 +43,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="2.1 সিটি কর্পোরেশন"
+                            android:text="2.1 সিটি কর্পোরেশন / জেলা"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <Spinner
@@ -62,7 +62,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="2.2 ওয়ার্ড নং"
+                            android:text="2.2 ওয়ার্ড নং/ইউনিয়ন"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <EditText

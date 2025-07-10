@@ -41,7 +41,7 @@ public class RevisitHHActivity extends AppCompatActivity {
     RecyclerView rec;
     LinearLayoutManager linearLayoutManager;
     RevisitListRecAdapter revisitListRecAdapter;
-    Loading loading;
+    public Loading loading;
     ArrayList<MRevisitHH> revisitHHS;
 
     @Override
