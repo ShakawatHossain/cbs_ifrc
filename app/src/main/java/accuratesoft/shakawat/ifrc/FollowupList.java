@@ -78,6 +78,7 @@ public class FollowupList extends AppCompatActivity {
         public void onClick(View view) {
             new Loading(sync,prs).alterVisibility();
             RequestQueue queue = Volley.newRequestQueue(FollowupList.this);
+
             String link = Util.url+"insert_followup.php";
             if (myDB.get_followup_done().moveToFirst()){
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, link,

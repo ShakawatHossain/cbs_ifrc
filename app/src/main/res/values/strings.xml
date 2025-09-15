@@ -86,4 +86,32 @@
         <item>১৪ দিনের কম</item>
         <item>১৪ দিনের বেশি</item>
     </string-array>
+    <string-array name="f_mode_list">
+        <item>Please select</item>
+        <item>Over phone</item>
+        <item>Face to face</item>
+    </string-array>
+    <string-array name="health_status_list">
+        <item>Please select</item>
+        <item>continues same situation</item>
+        <item>Symptoms improved</item>
+        <item>Symptoms worsen</item>
+        <item>Recovered (at home)</item>
+        <item>Hospitalized</item>
+    </string-array>
+    <string-array name="consult_type_list">
+        <item>Please select</item>
+        <item>Registered Doctor</item>
+        <item>CHW (shahthokormi)</item>
+        <item>Pharmacy/medicine shop</item>
+        <item>Traditional healer/Ayurved/Homeopath</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="refer_place_list">
+        <item>Please select</item>
+        <item>Urban PHC</item>
+        <item>Govt. hospital</item>
+        <item>Private clinic</item>
+        <item>Upazila health complex</item>
+    </string-array>
 </resources>

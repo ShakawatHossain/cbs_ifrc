@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListActivity">
+    tools:context=".EventFollowupList">
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -22,54 +23,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:text="Md. John "
-                />
+                android:text="Md. John " />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Button
-                    android:id="@+id/logut"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="logout"
-                    android:layout_marginRight="@dimen/marzin"/>
                 <Button
                     android:id="@+id/sync"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Upload data"
-                    android:layout_marginLeft="@dimen/marzin"/>
+                    android:text="Refresh list"
+                    android:layout_marginLeft="@dimen/marzin" />
                 <ProgressBar
                     android:id="@+id/prs"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:visibility="gone"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/followup"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Event follow up"
-                    android:layout_marginRight="@dimen/marzin"/>
-                <Button
-                    android:id="@+id/revisit"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="revisit"
-                    android:layout_marginLeft="@dimen/marzin"
-                    />
-                <ProgressBar
-                    android:id="@+id/fprs"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -84,13 +51,5 @@
         android:layout_marginRight="@dimen/row_gap"
         android:layout_marginLeft="@dimen/row_gap"
         android:layout_below="@+id/card"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/plus"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/marzin"
-        />
+
 </RelativeLayout>

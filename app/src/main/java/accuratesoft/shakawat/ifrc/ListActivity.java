@@ -104,8 +104,12 @@ public class ListActivity extends AppCompatActivity {
                 MhouseHold.clear();
                 startActivity(new Intent(ListActivity.this,HouseHold.class));
             } else if (view.getId()==followup.getId()) {
+                //new event followup
+                startActivity(new Intent(ListActivity.this, EventFollowupList.class));
+                /* previous followup code
                 new Loading(followup,(ProgressBar) findViewById(R.id.fprs)).alterVisibility();
                 saveFollowup();
+                */
             } else if (view.getId()==revisit.getId()) {
                 startActivity(new Intent(ListActivity.this, RevisitHHActivity.class));
             }
@@ -213,7 +217,8 @@ public class ListActivity extends AppCompatActivity {
             return;
         }
         RequestQueue queue = Volley.newRequestQueue(ListActivity.this);
-        String link = Util.url+"get_followup.php";
+//        String link = Util.url+"get_followup.php";
+        String link = Util.url+"get_event_followup.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, link,
                 new Response.Listener<String>() {
                     @Override
@@ -229,7 +234,6 @@ public class ListActivity extends AppCompatActivity {
                                 FollowupSave followupSave = new FollowupSave(jsonArray,ListActivity.this);
                                 followupSave.run();
                                 startActivity(new Intent(ListActivity.this,FollowupList.class));
-//                                            finish();
                             }else{
                                 Toast.makeText(ListActivity.this,msg,Toast.LENGTH_SHORT).show();
                             }
