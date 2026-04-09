@@ -177,6 +177,26 @@
                             />
                     </TableRow>
                     <TableRow
+                        android:id="@+id/mem_list_row"
+                        android:background="#ffffff"
+                        android:layout_marginBottom="@dimen/row_gap"
+                        android:layout_marginTop="@dimen/row_gap"
+                        android:visibility="gone">
+                        <ProgressBar
+                            android:id="@+id/mem_list_pbar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/mem_list"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical"
+                            />
+                    </TableRow>
+                    <TableRow
                         android:background="#ffffff"
                         android:layout_marginBottom="@dimen/row_gap"
                         android:id="@+id/mem_num_row"

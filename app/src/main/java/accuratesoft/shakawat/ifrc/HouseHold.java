@@ -166,8 +166,17 @@ public class HouseHold extends AppCompatActivity implements MultiInterface {
 //        ward.setText(String.valueOf(MhouseHold.ward));
         set_word(MhouseHold.cc);
         for(int i=0;i<word_num_list.size();i++){
-            if (word_num_list.get(i).compareTo(String.valueOf(MhouseHold.ward))==0){
-                word_num.setSelection(i);
+            if (MhouseHold.cc<=3){
+                if (word_num_list.get(i).compareTo(String.valueOf(MhouseHold.ward)) == 0) {
+                    word_num.setSelection(i);
+                }
+            }else{
+                if(word_num_list.get(i).length()>2){
+                    if(word_num_list.get(i).substring(0,2).compareTo(String.valueOf(MhouseHold.ward))==0){
+                        word_num.setSelection(i);
+                    }
+                }
+
             }
         }
         area.setText(MhouseHold.area);
@@ -189,8 +198,12 @@ public class HouseHold extends AppCompatActivity implements MultiInterface {
         death_animals_type.setText(MhouseHold.death_animals_type);
         symptom_7.setSelection(MhouseHold.symptom_7);
         symptom_6m.setSelection(MhouseHold.symptom_6m);
-        if (MhouseHold.symptom_7==2) symptom_7_mem_row.setVisibility(View.VISIBLE);
-        if (MhouseHold.symptom_6m==2) symptom_6m_mem_row.setVisibility(View.VISIBLE);
+        if (MhouseHold.symptom_7==2) {
+            symptom_7_mem_row.setVisibility(View.VISIBLE);
+            symptom_6m_mem_row.setVisibility(View.VISIBLE);
+        }
+        //todo change for health promotion
+        //if (MhouseHold.symptom_6m==2) symptom_6m_mem_row.setVisibility(View.VISIBLE);
         symptom_7_mem.setText(String.valueOf(MhouseHold.symptom_7_mem));
         symptom_6m_mem.setText(String.valueOf(MhouseHold.symptom_6m_mem));
 
@@ -437,11 +450,16 @@ public class HouseHold extends AppCompatActivity implements MultiInterface {
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             if(view!=null){
                 if (view.getParent() == symptom_7) {
-                    if (i == 2)
+                    if (i == 2) {
                         symptom_7_mem_row.setVisibility(View.VISIBLE);
-                    else {
+                        //todo change for health promotion
+                        symptom_6m_mem_row.setVisibility(View.VISIBLE);
+                    }else {
                         symptom_7_mem_row.setVisibility(View.GONE);
                         symptom_7_mem.setText("");
+                        //todo change for health promotion
+                        symptom_6m_mem_row.setVisibility(View.GONE);
+                        symptom_6m_mem.setText("");
                     }
                 } else if (view.getParent() == symptom_6m) {
                     if (i == 2)
@@ -517,8 +535,15 @@ public class HouseHold extends AppCompatActivity implements MultiInterface {
         }else if (val==4){
             word_num_list.add("01-Valukgaci");
             word_num_list.add("02-Baneshwar");
+            word_num_list.add("03-Belpukur");
+            word_num_list.add("04-Puthia");
+            word_num_list.add("05-Deopara");
+            word_num_list.add("06-Gogram");
+        }else if (val==5){
+            word_num_list.add("01-Fatehpur");
         }
         word_num_adapter.notifyDataSetChanged();
+//        word_num.setSelection(val);
     }
 
     @Override

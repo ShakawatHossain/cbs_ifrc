@@ -286,7 +286,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="3.3.3 তথ্য প্রদানকারীর মোবাইল নম্বরঃ"
+                            android:text="3.5 তথ্য প্রদানকারীর মোবাইল নম্বরঃ"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <EditText
@@ -305,7 +305,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="3.5 আপনার পরিবারে মোট সদস্য সংখ্যা কতজন?"
+                            android:text="3.6 আপনার পরিবারে মোট সদস্য সংখ্যা কতজন?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <EditText
@@ -321,12 +321,12 @@
                     <TableRow
                         android:background="#ffffff"
                         android:layout_marginBottom="@dimen/row_gap"
-                        android:visibility="gone">
+                        >
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="4.1 আপনার অথবা আপনার পরিবারের কারো কি গত ৭দিনে জ্বর, মাথাব্যাথা, গায়েব্যাথা, মাংশপেশী/গিরায় ব্যাথা, ডায়রিয়া বা বমির মত কোন লক্ষণ দেখা গিয়েছে?"
+                            android:text="4.1 হাউসহোল্ড হেলথ্ প্রোমোশন হয়েছে কি?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <Spinner
@@ -347,7 +347,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="4.2 আপনার পরিবারের কতজনের গত ৭দিনে জ্বর, মাথাব্যাথা, গায়েব্যাথা, মাংশপেশী/গিরায় ব্যাথা, ডায়রিয়া বা বমির মত মত কোন লক্ষণ দেখা গিয়েছে?"
+                            android:text="4.2  উপস্থিত পুরুষ সদস্য সংখ্যা?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <EditText
@@ -389,7 +389,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="5.2 আপনার অথবা আপনার পরিবারের কয়জন গত ৬মাসে ডেঙ্গু জ্বর এ আক্রান্ত  হয়েছিলেন?"
+                            android:text="4.3 এবং উপস্থিত নারী সদস্য সংখ্যা?"
                             android:layout_gravity="center_vertical"
                             android:textColor="@android:color/black"/>
                         <EditText

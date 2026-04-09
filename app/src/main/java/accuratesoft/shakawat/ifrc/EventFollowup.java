@@ -32,6 +32,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -48,11 +50,15 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import accuratesoft.shakawat.ifrc.adapters.MemListRecAdapter;
 import accuratesoft.shakawat.ifrc.interfaces.UploadCallback;
+import accuratesoft.shakawat.ifrc.models.MmemList;
+import accuratesoft.shakawat.ifrc.utils.AddDays;
 import accuratesoft.shakawat.ifrc.utils.Loading;
 import accuratesoft.shakawat.ifrc.utils.UploadManager;
 import accuratesoft.shakawat.ifrc.utils.Util;
@@ -61,15 +67,19 @@ public class EventFollowup extends AppCompatActivity {
     TextView title;
     EditText des,consult_oth,mem_num;
     Spinner mode,health_status,is_consult,consult_type,oth_family,is_referred,refer_place;
-    TableRow consult_type_row,consult_oth_row,mem_num_row,referred_row;
+    TableRow consult_type_row,consult_oth_row,mem_num_row,mem_list_row,referred_row;
     Button img_btn,submit;
-    ProgressBar pbar;
+    ProgressBar pbar,mem_list_pbar;
     ImageView img;
     int followup_id=0;
-    String participant_id="";
+    String participant_id="",followup_cause="";
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     byte[] imageBytes;
     SharedPreferences sharedPreferences;
+    ArrayList<MmemList> memLists = new ArrayList<>();
+    RecyclerView mem_list;
+    LinearLayoutManager linearLayoutManager;
+    MemListRecAdapter memListRecAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +100,7 @@ public class EventFollowup extends AppCompatActivity {
         consult_type_row = (TableRow) findViewById(R.id.consult_type_row);
         consult_oth_row = (TableRow) findViewById(R.id.consult_oth_row);
         mem_num_row = (TableRow) findViewById(R.id.mem_num_row);
+        mem_list_row = (TableRow) findViewById(R.id.mem_list_row);
         img_btn = (Button) findViewById(R.id.img_btn);
         submit = (Button) findViewById(R.id.submit);
         pbar = (ProgressBar) findViewById(R.id.pBar);
@@ -97,11 +108,13 @@ public class EventFollowup extends AppCompatActivity {
         is_referred = (Spinner) findViewById(R.id.is_referred);
         refer_place = (Spinner) findViewById(R.id.refer_place);
         referred_row = (TableRow) findViewById(R.id.referred_row);
+        mem_list_pbar = (ProgressBar) findViewById(R.id.mem_list_pbar);
 
         Intent intent = getIntent();
         title.setText(intent.getStringExtra("followup_cause")+" event followup: "+intent.getStringExtra("name"));
         followup_id = intent.getIntExtra("id",0);
         participant_id = intent.getStringExtra("participant_id");
+        followup_cause = intent.getStringExtra("followup_cause");
 
         submit.setOnClickListener(clickListener);
         img_btn.setOnClickListener(clickListener);
@@ -109,6 +122,11 @@ public class EventFollowup extends AppCompatActivity {
         is_consult.setOnItemSelectedListener(onItemSelectedListener);
         oth_family.setOnItemSelectedListener(onItemSelectedListener);
         is_referred.setOnItemSelectedListener(onItemSelectedListener);
+
+        mem_list = (RecyclerView) findViewById(R.id.mem_list);
+        linearLayoutManager = new LinearLayoutManager(EventFollowup.this);
+        mem_list.setLayoutManager(linearLayoutManager);
+
 
         imagePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -133,6 +151,14 @@ public class EventFollowup extends AppCompatActivity {
             if (view.getId()==submit.getId()){
                 if(check()){
                     sendResponse();
+                    boolean need_new_followup = false;
+                    for (MmemList mmemList : memLists){
+                        if (!mmemList.dof.isEmpty()) {
+                            need_new_followup = true;
+                            break;
+                        }
+                    }
+                    if(need_new_followup) memFollowup();
                 }
             } else if (view.getId() ==img_btn.getId()) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -167,10 +193,14 @@ public class EventFollowup extends AppCompatActivity {
                     consult_oth_row.setVisibility(View.GONE);
                 }
             } else if (view.getParent() ==oth_family) {
-                if (i==2)
+                if (i==2) {
                     mem_num_row.setVisibility(View.VISIBLE);
-                else
+                    mem_list_row.setVisibility(View.VISIBLE);
+                    get_family_members();
+                }else {
                     mem_num_row.setVisibility(View.GONE);
+                    mem_list_row.setVisibility(View.GONE);
+                }
             } else if (view.getParent() ==is_referred) {
                 if (i==2)
                     referred_row.setVisibility(View.VISIBLE);
@@ -202,6 +232,64 @@ public class EventFollowup extends AppCompatActivity {
                 }
             }
         return result;
+    }
+    private void get_family_members(){
+        mem_list_pbar.setVisibility(View.VISIBLE);
+        RequestQueue queue = Volley.newRequestQueue(EventFollowup.this);
+        String link = Util.url+"get_family_member.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, link,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        mem_list_pbar.setVisibility(View.GONE);
+                        Log.d("family member",response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int success = jsonObject.getInt("success");
+                            String msg = jsonObject.getString("message");
+                            if(success == 1) {
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                memLists = new ArrayList<>();
+                                for(int i=0;i<jsonArray.length();i++){
+                                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                    memLists.add(new MmemList(
+                                            jsonObject1.getString("id_number"),
+                                            jsonObject1.getString("name"),
+                                            ""
+                                    ));
+                                }
+                                memListRecAdapter = new MemListRecAdapter(EventFollowup.this,memLists,mem_list,
+                                        EventFollowup.this);
+                                mem_list.setAdapter(memListRecAdapter);
+                                Util.makeToast(EventFollowup.this,msg);
+                            }else{
+                                Toast.makeText(EventFollowup.this,msg,Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mem_list_pbar.setVisibility(View.GONE);
+                Toast.makeText(EventFollowup.this,"Upload error!",Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<String,String>();
+                params.put("pt_id",participant_id);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(20), //After the set time elapses the request will timeout
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(stringRequest);
+
     }
     private void sendResponse(){
         new Loading(submit,pbar).alterVisibility();
@@ -266,6 +354,66 @@ public class EventFollowup extends AppCompatActivity {
         queue.add(stringRequest);
 
         
+    }
+    private void memFollowup(){
+        RequestQueue queue = Volley.newRequestQueue(EventFollowup.this);
+        String link = Util.url+"mem_followup_insert.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, link,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.d("Upload followup",response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            int success = jsonObject.getInt("success");
+                            String msg = jsonObject.getString("message");
+                            if(success == 1) {
+                                Util.makeToast(EventFollowup.this,msg);
+                            }else{
+                                Util.makeToast(EventFollowup.this,msg);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(EventFollowup.this,"Upload error!",Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> params = new HashMap<String,String>();
+                JSONObject jobj = new JSONObject();
+                JSONArray jsonArray_mem = new JSONArray();
+                try {
+                    for (MmemList mmemList : memLists) {
+                        if(!mmemList.dof.isEmpty()) {
+                            JSONObject jobj_mem = new JSONObject();
+                            jobj_mem.put("participant_id", mmemList.pt_id);
+                            jobj_mem.put("followup_date", AddDays.addDays(mmemList.dof,30));
+                            jobj_mem.put("followup_cause", followup_cause);
+                            jobj_mem.put("followup_from", "2");
+                            jobj_mem.put("user", String.valueOf(sharedPreferences.getInt("id", 0)));
+                            jsonArray_mem.put(jobj_mem);
+                        }
+                    }
+                    jobj.put("mem_followup",jsonArray_mem);
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                params.put("data",jobj.toString());
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(20), //After the set time elapses the request will timeout
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(stringRequest);
     }
     private void sendImage(String filename){
         File imageFile = null;

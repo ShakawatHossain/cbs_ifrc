@@ -17,6 +17,7 @@
         <item>রাজশাহী সিটি কর্পোরেশন</item>
         <item>সিলেট সিটি কর্পোরেশন</item>
         <item>রাজশাহী উপজেলা</item>
+        <item>সিলেট উপজেলা</item>
     </string-array>
     <string-array name="gen_list">
         <item>পছন্দ করুন</item>
@@ -102,9 +103,14 @@
     <string-array name="consult_type_list">
         <item>Please select</item>
         <item>Registered Doctor</item>
-        <item>CHW (shahthokormi)</item>
+        <item>Health assistant (shahthokormi)</item>
         <item>Pharmacy/medicine shop</item>
-        <item>Traditional healer/Ayurved/Homeopath</item>
+        <item>Traditional healer/Ayurved/Homeopath/Village doctor</item>
+        <item>Private/NGO health worker</item>
+        <item>Community clinic</item>
+        <item>Union sub senter</item>
+        <item>Upazila health complex</item>
+        <item>District/medical college hospital</item>
         <item>Others</item>
     </string-array>
     <string-array name="refer_place_list">
